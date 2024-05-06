@@ -1,0 +1,7 @@
+include LICENSE AUTHORS README.rst CHANGELOG.rst CITATION.bib
+
+global-include *.json
+global-include *.h5
+
+prune .git*
+prune tutorials*

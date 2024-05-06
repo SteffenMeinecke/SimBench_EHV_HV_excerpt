@@ -1,0 +1,63 @@
+[build-system]
+requires = ["build", "wheel", "setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "SimBench_EHV_HV_excerpt"
+version = "0.1.0"
+authors = [
+    { name = "Steffen Meinecke", email = "steffen.meinecke@uni-kassel.de" }
+]
+maintainers = [
+    { name = "Steffen Meinecke", email = "steffen.meinecke@uni-kassel.de" }
+]
+description = "Electrical Power System Benchmark Grid Excerpt for Dissertation."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    # Add the specific Python versions supported here, e.g.:
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12"
+]
+dependencies = [
+    "pandapower>=2.14.6",
+    "simbench>=1.5.3"
+    ]
+keywords = [
+    "Optimal Power Flow", "Voltage Control", "Reactive Power Dispatch", "Transmission System Operator", "Distribution System Operator", "Grid Operation Planning", "Multi-Voltage Level", "Fairness"
+]
+
+[project.urls]
+Source = "https://github.com/SteffenMeinecke/SimBench_EHV_HV_excerpt"
+Repository = "https://github.com/SteffenMeinecke/SimBench_EHV_HV_excerpt.git"
+Issues = "https://github.com/SteffenMeinecke/SimBench_EHV_HV_excerpt/issues"
+Download = "https://pypi.org/project/SimBench_EHV_HV_excerpt/#files"
+Changelog = "https://github.com/SteffenMeinecke/SimBench_EHV_HV_excerpt/blob/develop/CHANGELOG.rst"
+
+[project.optional-dependencies]
+plotting = ["matplotlib", "geopandas", "geojson"]
+test = ["pytest~=8.1", "pytest-xdist", "nbmake"]
+fileio = ["geopandas"]
+tutorials = ["matplotlib", "geopandas", "geojson"]
+all = [
+    "matplotlib", "geopandas", "geojson",
+    "pytest~=8.1", "pytest-xdist", "nbmake"
+]
+
+[tool.setuptools.packages]
+find = {}
+
+[tool.pytest.ini_options]
+addopts = ["--strict-markers"]
