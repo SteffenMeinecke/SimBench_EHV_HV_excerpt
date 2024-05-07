@@ -33,7 +33,8 @@ classifiers = [
 ]
 dependencies = [
     "pandapower>=2.14.6",
-    "simbench>=1.5.3"
+    "simbench>=1.5.3",
+    "pytables"
     ]
 keywords = [
     "Optimal Power Flow", "Voltage Control", "Reactive Power Dispatch", "Transmission System Operator", "Distribution System Operator", "Grid Operation Planning", "Multi-Voltage Level", "Fairness"
