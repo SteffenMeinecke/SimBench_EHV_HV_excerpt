@@ -13,7 +13,7 @@ def check_element_number(net, expected_numbers):
 
 
 def check_profiles(net, time_steps):
-    keys = {"load.p_mw", "load.q_mvar", "sgen.p_mw", "gen.p_mw", "storage.p_mw", "gen.vm_pu"}
+    keys = {"load.p_mw", "load.q_mvar", "sgen.p_mw", "gen.p_mw", "gen.vm_pu"}
     assert "profiles" in net.keys()
     assert set(net.profiles.keys()) == keys
     for key in keys:
@@ -67,7 +67,9 @@ def test_SO_zones():
 
 
 def test_function_params():
-    net = sbe.SimBench_for_phd()
+    # this is included in test_element_numbers() already:
+    # net = sbe.SimBench_for_phd()
+    # check_element_number(net1, default_element_numbers())
 
     # wbb
     net1 = sbe.SimBench_for_phd(wbb=True)
@@ -117,8 +119,13 @@ def test_powers():
     assert np.allclose(net.profiles["sgen.p_mw"].sum(axis=1), expected_p_sgen, atol=0.1)
 
     # apply controllers
-    no_const_ctrls = sbe.add_control_strategy(net, "LocalCtrl")
-    sb.apply_const_controllers(net, net.profiles, "no_const_ctrls")
+    assert net.controller.shape[0] == 0 # there are no controllers in the grid
+    no_const_ctrls = sbe.toolbox.add_control_strategy(net, "LocalCtrl")
+    from SimBench_EHV_HV_excerpt.toolbox.controller_functions import DERController
+    assert len(sbe.toolbox.controller_type_index(net, DERController)) # there are DERControllers
+    sb.apply_const_controllers(net, net.profiles, no_const_ctrls)
+    assert len(sbe.toolbox.controller_type_index(
+        net, pp.control.ConstControl)) # now, there are ConstControllers, as well
 
     # define tracked variables
     res_cols = [(f"res_bus", col) for col in ["vm_pu", "p_mw"]]
@@ -151,24 +158,16 @@ def test_powers():
     t_dep_losses1 = res["res_line.pl_mw"].sum(axis=1) + res["res_trafo.pl_mw"].sum(axis=1)
     t_dep_losses2 = -res["res_bus.p_mw"].sum(axis=1)
     assert np.allclose(t_dep_losses1, t_dep_losses2, atol=1e-2)
-    expected_losses = np.array([203.95, 299.22, 290.13, 249.22, 219.9, 218.92, 169.21, 220.14])
+    expected_losses = np.array([203.95, 299.30, 290.23, 249.35, 220.03, 219.03, 169.38, 220.23])
     assert np.allclose(t_dep_losses1, expected_losses, atol=0.1)
-
-    # TODO: check that LocalCtrl are doing something
-
-
-@pytest.mark.skip(reason="test is not finished")
-def test_h5():
-    pass  # TODO
 
 
 if __name__ == "__main__":
-    # pytest.main([__file__])  # run all tests
+    pytest.main([__file__])  # run all tests
 
     # test_element_numbers()
     # test_SO_zones()
     # test_function_params()
     # test_powers()
-    test_h5()
 
     pass

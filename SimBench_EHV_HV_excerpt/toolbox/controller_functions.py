@@ -27,7 +27,8 @@ def controller_type_index(net, controller_type):
 def consider_distr_slack(net, **kwargs):
     """ kwargs for DistributedSlack controller """
     if not distrSl_imported:
-        raise ModuleNotFoundError("consider_distr_slack() uses not open-source control functionality pandaplan-core.")
+        raise ModuleNotFoundError(
+            "consider_distr_slack() uses not open-source control functionality pandaplan-core.")
     if "controller" in net.keys() and isinstance(net.controller, pd.DataFrame):
         ds_idx = controller_type_index(net, DistributedSlack)
     else:

@@ -1,6 +1,3 @@
-import os
-sb_excerpt_dir = os.path.dirname(os.path.realpath(__file__))
-
 from .controller_functions import *
 from .downcasting import *
 from .json_io import *

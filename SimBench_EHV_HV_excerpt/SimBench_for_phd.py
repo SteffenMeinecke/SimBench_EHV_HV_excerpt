@@ -124,6 +124,9 @@ def SimBench_for_phd(
             net.profiles["gen.p_mw"] = res[gen_p_key][net.gen.index]
             del res
 
+            # downcast profiles
+            downcast_profiles(net)
+
             # -- reduce the net to the relevant part
             logger.info("reduce_ehv() starts.")
             net = reduce_ehv(net, time_steps, boundary_buses, zone_boundary_buses, inner_buses)
@@ -236,10 +239,9 @@ def _store_files_to_desktop(net) -> None:
 
 if __name__ == "__main__":
 
-    net = SimBench_for_phd(from_json=False, time_steps=True)  # from_json=True, time_steps=False, merged_same_bus_gens=False
+    net = SimBench_for_phd()  # from_json=True, time_steps=False, merged_same_bus_gens=False
 
     if False:
-        from smeinecke.python.local_toolbox import store_profiles_to_hdf5_file
         net = SimBench_for_phd(time_steps=True)
         downcast_profiles(net.profiles)
-        store_profiles_to_hdf5_file(net.profiles, _hdf5_profiles_file())
+        store_profiles_to_hdf5_file(net.profiles, os.path.join(home, "Desktop", "profiles.h5"))
