@@ -20,6 +20,15 @@ data_path = os.path.join(sb_excerpt_dir, "data")
 profiles_file = os.path.join(data_path, "profiles.h5")
 
 
+def check_file_existence(file):
+    if not os.path.exists(file):
+        raise FileNotFoundError(f"file {file} does not exist.")
+    if not os.path.isfile(file):
+        raise FileNotFoundError(f"{file} is not file.")
+    if not os.access(file, os.R_OK):
+        raise PermissionError(f"There are no reading rights for file {file}.")
+
+
 def add_profiles_from_h5_to_net(net:pp.pandapowerNet,
                                 h5_file:str,
                                 time_steps:bool|list[int]|np.ndarray|pd.Index,
@@ -29,6 +38,7 @@ def add_profiles_from_h5_to_net(net:pp.pandapowerNet,
         pass  # nothing to do
 
     elif time_steps is True:
+        check_file_existence(h5_file)
         with pd.HDFStore(h5_file) as hdf:
             net.profiles = {slash_to_dot(key): hdf.get(key) for key in hdf.keys()}
 
@@ -44,6 +54,7 @@ def add_profiles_from_h5_to_net(net:pp.pandapowerNet,
                             "time_steps are not sorted.")
             time_steps = sorted(time_steps)
 
+        check_file_existence(h5_file)
         with pd.HDFStore(h5_file) as hdf:
             net.profiles = {slash_to_dot(key): hdf.select(
                 key, start=time_steps[0], stop=time_steps[-1]+1) for key in hdf.keys()}

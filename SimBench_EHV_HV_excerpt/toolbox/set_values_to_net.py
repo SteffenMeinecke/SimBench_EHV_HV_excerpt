@@ -28,7 +28,7 @@ def set_time_step(net: pp.pandapowerNet,
             if isinstance(val, pd.DataFrame):
                 if intersection:
                     idx = net[et][col].index.intersection(val.loc[time_step].index)
-                    net[et][col].loc[idx] = val.loc[time_step].loc[idx]
+                    net[et].loc[idx, col] = val.loc[time_step].loc[idx]
                 else:
                     net[et][col] = val.loc[time_step]
             else:
@@ -141,8 +141,8 @@ def set_sgen_limits(
     vde_lims = VDE_Q_minmax()
     idx = net.sgen.qcurve1.isin(vde_lims.index)
     for lim, fct in zip(["min", "max"], [np.maximum, np.minimum]):
-        net.sgen[f"{lim}_q_mvar"].loc[idx] = fct(
-            net.sgen[f"{lim}_q_mvar"].loc[idx],
+        net.sgen.loc[idx, f"{lim}_q_mvar"] = fct(
+            net.sgen.loc[idx, f"{lim}_q_mvar"],
             vde_lims.loc[net.sgen.qcurve1.loc[idx], lim].values * net.sgen.p_mw.loc[idx])
 
     # set sgen.q_mvar into limits
