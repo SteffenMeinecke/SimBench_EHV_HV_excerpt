@@ -34,7 +34,7 @@ classifiers = [
 dependencies = [
     "pandapower>=2.14.6",
     "simbench>=1.5.3",
-    "tables"
+    "cython", "h5py", "tables"
     ]
 keywords = [
     "Optimal Power Flow", "Voltage Control", "Reactive Power Dispatch", "Transmission System Operator", "Distribution System Operator", "Grid Operation Planning", "Multi-Voltage Level", "Fairness"
