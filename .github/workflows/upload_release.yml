@@ -46,6 +46,7 @@ jobs:
           time: 300s
       - name: Install SimBench_EHV_HV_excerpt from PyPI
         run: |
+          sudo apt install libhdf5-serial-dev
           python3 -m pip install pandas[hdf5]
           python3 -m pip install SimBench_EHV_HV_excerpt
           python3 -c "import SimBench_EHV_HV_excerpt; print(SimBench_EHV_HV_excerpt.__version__)"

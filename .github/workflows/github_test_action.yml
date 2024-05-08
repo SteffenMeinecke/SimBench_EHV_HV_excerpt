@@ -30,6 +30,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
+        sudo apt install libhdf5-serial-dev
         python -m pip install --upgrade pip
         python -m pip install pytest jupyter
         python -m pip install pandas[hdf5]
@@ -53,6 +54,7 @@ jobs:
         python-version: '3.12'
     - name: Install dependencies
       run: |
+        sudo apt install libhdf5-serial-dev
         python -m pip install --upgrade pip
         python -m pip install pandas[hdf5]
         python -m pip install $GITHUB_WORKSPACE["test"]
@@ -74,6 +76,7 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: |
+          sudo apt install libhdf5-serial-dev
           python -m pip install --upgrade pip
           python -m pip install pandas[hdf5]
           python -m pip install $GITHUB_WORKSPACE["all"]
@@ -95,6 +98,7 @@ jobs:
           python-version: '3.12'
       - name: Install dependencies
         run: |
+          sudo apt install libhdf5-serial-dev
           python -m pip install --upgrade pip
           python -m pip install pandas[hdf5]
           python -m pip install $GITHUB_WORKSPACE["all"]
