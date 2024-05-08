@@ -32,7 +32,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install pytest jupyter
-        python -m pip install pandas["hdf5"]
+        python -m pip install pandas[hdf5]
         python -m pip install $GITHUB_WORKSPACE["test"]
     - name: List of installed packages
       run: |
@@ -54,7 +54,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install pandas["hdf5"]
+        python -m pip install pandas[hdf5]
         python -m pip install $GITHUB_WORKSPACE["test"]
     - name: List of installed packages
       run: |
@@ -75,7 +75,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pandas["hdf5"]
+          python -m pip install pandas[hdf5]
           python -m pip install $GITHUB_WORKSPACE["all"]
       - name: List of installed packages
         run: |
@@ -96,7 +96,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pandas["hdf5"]
+          python -m pip install pandas[hdf5]
           python -m pip install $GITHUB_WORKSPACE["all"]
       - name: List of installed packages
         run: |
