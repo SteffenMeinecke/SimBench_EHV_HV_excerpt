@@ -1,12 +1,11 @@
 import os
-from pathlib import Path
 import shutil
 import tempfile
 import numpy as np
 import pandas as pd
 import pandapower as pp
 
-from SimBench_EHV_HV_excerpt import sb_excerpt_dir
+from SimBench_EHV_HV_excerpt import profiles_file
 from SimBench_EHV_HV_excerpt.toolbox.set_values_to_net import set_time_step
 
 try:
@@ -15,9 +14,6 @@ except ImportError:
     import logging
 
 logger = logging.getLogger(__name__)
-home = str(Path.home())
-data_path = os.path.join(sb_excerpt_dir, "data")
-profiles_file = os.path.join(data_path, "profiles.h5")
 
 
 def check_file_existence(file):
