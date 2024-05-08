@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 # --- define paths applied in the repo
-sb_excerpt_dir = os.path.dirname(os.path.realpath(__file__))
+sb_excerpt_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 home = str(Path.home())
 data_path = os.path.join(sb_excerpt_dir, "data")
 profiles_file = os.path.join(data_path, "profiles.h5")
