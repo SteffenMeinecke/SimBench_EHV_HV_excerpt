@@ -32,7 +32,6 @@ jobs:
       - name: Install SimBench_EHV_HV_excerpt & dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pandas[hdf5]
           python -m pip install .["all"]
 
       - name: List all installed packages

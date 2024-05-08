@@ -32,9 +32,9 @@ classifiers = [
     "Programming Language :: Python :: 3.12"
 ]
 dependencies = [
+    "pandas[hdf5]",
     "pandapower>=2.14.6",
     "simbench>=1.5.3",
-    "cython", "h5py", "tables"
     ]
 keywords = [
     "Optimal Power Flow", "Voltage Control", "Reactive Power Dispatch", "Transmission System Operator", "Distribution System Operator", "Grid Operation Planning", "Multi-Voltage Level", "Fairness"
