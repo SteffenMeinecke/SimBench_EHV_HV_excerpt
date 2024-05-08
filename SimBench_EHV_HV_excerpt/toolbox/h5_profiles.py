@@ -24,9 +24,11 @@ def check_file_existence(file):
     if not os.path.exists(file):
         raise FileNotFoundError(f"file {file} does not exist.")
     if not os.path.isfile(file):
-        raise FileNotFoundError(f"{file} is not file.")
+        raise FileNotFoundError(f"{file} is not a file.")
     if not os.access(file, os.R_OK):
         raise PermissionError(f"There are no reading rights for file {file}.")
+    if not os.access(file, os.W_OK):
+        raise PermissionError(f"There are no writing rights for file {file}.")
 
 
 def add_profiles_from_h5_to_net(net:pp.pandapowerNet,
