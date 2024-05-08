@@ -5,7 +5,7 @@ from pathlib import Path
 sb_excerpt_dir = os.path.dirname(os.path.realpath(__file__))
 home = str(Path.home())
 data_path = os.path.join(sb_excerpt_dir, "data")
-profiles_file = os.path.join(os.path.dirname(sb_excerpt_dir), "data", "profiles.h5")
+profiles_file = os.path.join(data_path, "profiles.h5")
 
 # --- import functionality
 import SimBench_EHV_HV_excerpt.toolbox

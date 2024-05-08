@@ -126,7 +126,7 @@ def SimBench_for_phd(
             del res
 
             # downcast profiles
-            downcast_profiles(net)
+            downcast_profiles(net.profiles)
 
             # -- reduce the net to the relevant part
             logger.info("reduce_ehv() starts.")
@@ -243,6 +243,6 @@ if __name__ == "__main__":
     net = SimBench_for_phd()  # from_json=True, time_steps=False, merged_same_bus_gens=False
 
     if False:
-        net = SimBench_for_phd(time_steps=True)
+        net = SimBench_for_phd(from_json=False, time_steps=True)
         downcast_profiles(net.profiles)
         store_profiles_to_hdf5_file(net.profiles, os.path.join(home, "Desktop", "profiles.h5"))
