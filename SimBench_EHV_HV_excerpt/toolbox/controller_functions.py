@@ -4,7 +4,8 @@ import pandapower as pp
 from pandapower.control import DiscreteTapControl
 
 try:
-    from pandapower.control import DERController, QModelQV, PQVArea4120V2, CosphiPCurve
+    from pandapower.control.controller.DERController import DERController, QModelQV, \
+        PQVArea4120V2, CosphiPCurve
     controllers_imported = True
 except ImportError:
     try:

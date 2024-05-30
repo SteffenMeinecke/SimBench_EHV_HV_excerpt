@@ -5,6 +5,7 @@ import pandas as pd
 import pandapower as pp
 import simbench as sb
 
+from SimBench_EHV_HV_excerpt import home, data_path
 from SimBench_EHV_HV_excerpt.toolbox import *
 
 try:
@@ -72,7 +73,7 @@ def SimBench_for_phd(
     # --- only read from json file -----------------------------------------------------------------
     if from_json:
         net = pp.from_json(os.path.join(data_path, "net.json"))
-        add_profiles_from_h5_to_net(net, profiles_file, time_steps, False)
+        add_profiles_from_parquet_to_net(net, time_steps, False, kwargs.get("profiles_folder", None))
 
     # --- create net -------------------------------------------------------------------------------
     else:
@@ -125,7 +126,7 @@ def SimBench_for_phd(
             del res
 
             # downcast profiles
-            downcast_profiles(net)
+            downcast_profiles(net.profiles)
 
             # -- reduce the net to the relevant part
             logger.info("reduce_ehv() starts.")
@@ -228,13 +229,13 @@ def _store_files_to_desktop(net) -> None:
     del net_wo_profiles
 
     # --- store profiles to h5
-    profiles_file = os.path.join(home, "Desktop", "profiles.h5")
-    file_exists = os.path.exists(profiles_file)
-    store_profiles_to_hdf5_file(net.profiles, profiles_file)
-    if file_exists:
-        logger.info("'profiles.h5' is replaced/updated on your Desktop.")
+    profiles_folder = os.path.join(home, "Desktop", "profiles")
+    dir_exists = os.path.exists(profiles_folder)
+    store_profiles_to_parquet_files(net.profiles, profiles_folder)
+    if dir_exists:
+        logger.info("The profile folders at the desktop were refilled by parquet files.")
     else:
-        logger.info("'profiles.h5' has been created on your Desktop.")
+        logger.info("profiles were written to parquet files in the profiles folder on your Desktop.")
 
 
 if __name__ == "__main__":
@@ -242,6 +243,6 @@ if __name__ == "__main__":
     net = SimBench_for_phd()  # from_json=True, time_steps=False, merged_same_bus_gens=False
 
     if False:
-        net = SimBench_for_phd(time_steps=True)
+        net = SimBench_for_phd(from_json=False, time_steps=True)
         downcast_profiles(net.profiles)
         store_profiles_to_hdf5_file(net.profiles, os.path.join(home, "Desktop", "profiles.h5"))

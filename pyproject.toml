@@ -32,8 +32,9 @@ classifiers = [
     "Programming Language :: Python :: 3.12"
 ]
 dependencies = [
+    "pandas[parquet]",
     "pandapower>=2.14.6",
-    "simbench>=1.5.3"
+    "simbench>=1.5.3",
     ]
 keywords = [
     "Optimal Power Flow", "Voltage Control", "Reactive Power Dispatch", "Transmission System Operator", "Distribution System Operator", "Grid Operation Planning", "Multi-Voltage Level", "Fairness"
