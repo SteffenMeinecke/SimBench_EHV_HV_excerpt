@@ -4,12 +4,13 @@ import pandapower as pp
 from pandapower.control import DiscreteTapControl
 
 try:
-    from pandapower.control.controller.DERController import DERController, QModelQV, \
+    from pandapower.control.controller.DERController import DERController, QModelQVCurve, \
         PQVArea4120V2, CosphiPCurve
     controllers_imported = True
 except ImportError:
     try:
-        from pandaplan.core.control import DERController, QModelQV, PQVArea4120V2, CosphiPCurve
+        from pandaplan.core.control import DERController, PQVArea4120V2, CosphiPCurve
+        from pandaplan.core.control import QModelQV as QModelQVCurve
         controllers_imported = True
     except ImportError:
         controllers_imported = False
@@ -75,11 +76,11 @@ def add_control_strategy(net:pp.pandapowerNet, control:str|None) -> dict[str,pd.
             print(net.sgen.sn_mva.loc[qofv_idx].sum())
             print(len(have_p_sgens.difference(cos1_idx).difference(cosp_idx).difference(qofv_idx)))
 
-        cosphip_model = QModelQV(qv_curve=CosphiPCurve(
+        cosphip_model = QModelQVCurve(qv_curve=CosphiPCurve(
             p_points_pu=(0, 0.5, 1),
             cosphi_points=(1, 1, -0.9)))
 
-        qofv_model = QModelQV({
+        qofv_model = QModelQVCurve({
             # "vm_points_pu": (0, 0.96, 1.04),  # old
             "vm_points_pu": (0, 0.98, 1.06),
             "q_points_pu": (0.484, 0.484, -0.484)})
@@ -98,7 +99,7 @@ def add_control_strategy(net:pp.pandapowerNet, control:str|None) -> dict[str,pd.
         return {"sgen": qofv_idx.union(cosp_idx)}
 
     elif control == "QofV":  # DERController - only Q(Vm)
-        q_model = QModelQV({
+        q_model = QModelQVCurve({
             "v_points_pu": (0, 0.93, 0.97, 1.03, 1.07),
             "q_points": (0.484, 0.484, 0, 0, -0.484)})  # QofV values
         pqv_area = PQVArea4120V2()  # PQVArea4120V1, PQVArea4120V3
