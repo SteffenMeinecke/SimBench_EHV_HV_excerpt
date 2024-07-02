@@ -61,16 +61,19 @@ def add_control_strategy(net:pp.pandapowerNet, control:str|None) -> dict[str,pd.
 
     if control == "LocalCtrl":  # DERController - Q(Vm) and CosPhi(P)
         pv_idx = net.sgen.index[net.sgen.type.isin(["PV", "pv"])].intersection(have_p_sgens)
-        cosp_idx = pv_idx[np.arange(0, len(pv_idx), 2, dtype=int)]
-        cos1_idx = pv_idx.difference(cosp_idx)
+        cosp_idx = pv_idx[np.arange(0, len(pv_idx), 2, dtype=int)].intersection(have_p_sgens)
         other_idx = net.sgen.index[net.sgen.type != "wind offshore"].difference(
             pv_idx).intersection(have_p_sgens)
         qofv_idx = other_idx[np.arange(0, len(other_idx), 2, dtype=int)].union(net.sgen.index[
-            net.sgen.type == "wind offshore"]).intersection(net.sgen.index[net.sgen.controllable])
+            net.sgen.type == "wind offshore"].intersection(have_p_sgens)).intersection(
+                net.sgen.index[net.sgen.controllable])
         cosp_idx = cosp_idx.union(other_idx.difference(qofv_idx)).intersection(net.sgen.index[
             net.sgen.controllable])
 
         if False:  # print apparent power sums of the sgens with different control characteristics:
+            no_p_sgens = net.sgen.index.difference(have_p_sgens)
+            cos1_idx = pv_idx.difference(cosp_idx)
+            print(net.sgen.sn_mva.loc[no_p_sgens].sum())
             print(net.sgen.sn_mva.loc[cos1_idx].sum())
             print(net.sgen.sn_mva.loc[cosp_idx].sum())
             print(net.sgen.sn_mva.loc[qofv_idx].sum())
@@ -88,10 +91,8 @@ def add_control_strategy(net:pp.pandapowerNet, control:str|None) -> dict[str,pd.
         pqu_area = PQVArea4120V2()  # PQVArea4120V1, PQVArea4120V3
 
         for idxs, q_model in zip([qofv_idx, cosp_idx], [qofv_model, cosphip_model]):
-            for idx in idxs:
-                DERController(net, idx, q_model=q_model, pqu_area=pqu_area, damping_coef=3,
-                                p_profile=idx, profile_name=idx,
-                                data_source=data_source)
+            DERController(net, idxs, q_model=q_model, pqu_area=pqu_area, damping_coef=3,
+                          p_profile=idxs, data_source=data_source)
 
         # --- trafo control
         DiscreteTapControl(net, net.trafo.index.difference([106]).values, 1.005, 1.055, side="lv")

@@ -32,7 +32,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install pytest jupyter
-        python -m pip install git+https://github.com/SteffenMeinecke/pandapower.git@feature/DERController
+        python -m pip install git+https://github.com/e2nIEE/pandapower.git@develop
         python -m pip install git+https://github.com/e2nIEE/simbench.git@develop
         python -m pip install $GITHUB_WORKSPACE["test"]
     - name: List of installed packages
@@ -55,7 +55,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install git+https://github.com/SteffenMeinecke/pandapower.git@feature/DERController
+        python -m pip install git+https://github.com/e2nIEE/pandapower.git@develop
         python -m pip install git+https://github.com/e2nIEE/simbench.git@develop
         python -m pip install $GITHUB_WORKSPACE["test"]
     - name: List of installed packages
@@ -77,7 +77,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install git+https://github.com/SteffenMeinecke/pandapower.git@feature/DERController
+        python -m pip install git+https://github.com/e2nIEE/pandapower.git@develop
           python -m pip install git+https://github.com/e2nIEE/simbench.git@develop
           python -m pip install $GITHUB_WORKSPACE["test","all"]
       - name: List of installed packages
@@ -99,7 +99,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install git+https://github.com/SteffenMeinecke/pandapower.git@feature/DERController
+        python -m pip install git+https://github.com/e2nIEE/pandapower.git@develop
           python -m pip install git+https://github.com/e2nIEE/simbench.git@develop
           python -m pip install $GITHUB_WORKSPACE["test","all"]
       - name: List of installed packages
