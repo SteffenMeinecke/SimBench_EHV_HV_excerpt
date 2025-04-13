@@ -1,6 +1,6 @@
 Change Log
 =============
 
-[0.1.0] - 2024-xx-xx
+[1.0.0] - 2025-04-13
 ----------------------
 - [ADDED] initiate Repository including all codes and data
