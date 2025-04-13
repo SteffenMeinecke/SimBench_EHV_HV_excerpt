@@ -73,6 +73,13 @@ def SimBench_for_phd(
     # --- only read from json file -----------------------------------------------------------------
     if from_json:
         net = pp.from_json(os.path.join(data_path, "net.json"))
+
+        # --- fix pp3.0 columns (should be tackled by convert_format in from_json())
+        cols = ["tap_dependency_table"]*2 + ["step_dependency_table"]
+        for et, col in zip(["trafo", "trafo3w", "shunt"], cols):
+            if col not in net[et].columns:
+                net[et][col] = False
+
         add_profiles_from_parquet_to_net(net, time_steps, False, kwargs.get("profiles_folder", None))
 
     # --- create net -------------------------------------------------------------------------------
