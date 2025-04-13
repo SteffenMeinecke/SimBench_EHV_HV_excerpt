@@ -10,4 +10,4 @@ and the two referenced papers
 * ['Distributed optimization of smart grid assets for grid operation preserving power system operator sovereignty'](https://ieeexplore.ieee.org/document/10202774).
 
 The grid data is an excerpt of [simbench](https://github.com/e2nIEE/simbench/) and directly applicable using [pandapower](https://github.com/e2nIEE/pandapower/).
-The [Tutorial](https://github.com/SteffenMeinecke/SimBench_EHV_HV_excerpt/blob/master/tutorials/GettingStarted.ipynb) gives advise how to apply the provided data and code.
+This [Tutorial](https://github.com/SteffenMeinecke/SimBench_EHV_HV_excerpt/blob/master/tutorials/GettingStarted.ipynb) gives advise how to apply the provided data and code.
