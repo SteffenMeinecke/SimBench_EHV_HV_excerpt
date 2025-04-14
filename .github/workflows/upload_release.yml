@@ -43,7 +43,7 @@ jobs:
         if: ${{ inputs.upload_server == 'testpypi' }}
         run: |
           python3 -m build
-          python3 -m twine check dist/* --strict
+          python3 -m twine check dist/* --strict --verbose
           python3 -m twine upload dist/*
         env:
           TWINE_USERNAME: __token__
