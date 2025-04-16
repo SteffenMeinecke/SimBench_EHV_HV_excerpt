@@ -57,8 +57,48 @@ all = [
     "pytest~=8.1", "pytest-xdist", "nbmake"
 ]
 
-[tool.setuptools.packages]
-find = {}
+[tool.setuptools]
+license-files = [
+    'LICEN[CS]E*',
+    'COPYING*',
+    'NOTICE*',
+    'AUTHORS*',
+    'CHANGELOG*',
+    'CITATION*',
+]
+
+[tool.setuptools.packages.find]
+include = [
+    "SimBench_EHV_HV_excerpt*",
+]
+exclude = [
+    "SimBench_EHV_HV_excerpt.test*",
+]
+
+[tool.setuptools.package-data]
+"*" = [
+    "*.p",
+    "*.m",
+    "*.mat",
+    "*.json",
+    "*.jl",
+    "*.csv"
+]
 
 [tool.pytest.ini_options]
 addopts = ["--strict-markers"]
+markers = [
+  "slow: marks tests as slow (deselect with '-m \"not slow\"'), e.g. in run_fast_tests"
+]
+
+[tool.coverage.run]
+omit = [
+    "SimBench_EHV_HV_excerpt/test/*"
+]
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "def __str__",
+    "if __name__ == .__main__.:"
+]
