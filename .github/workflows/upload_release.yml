@@ -36,14 +36,14 @@ jobs:
           # Upgrade pip
           python3 -m pip install --upgrade pip
           # Install twine
-          python3 -m pip install build setuptools wheel twine
+          python3 -m pip install build setuptools wheel twine!=6.1.0
 
       # Upload to TestPyPI
       - name: Build and Upload to TestPyPI
         if: ${{ inputs.upload_server == 'testpypi' }}
         run: |
           python3 -m build
-          python3 -m twine check dist/* --strict --verbose
+          python3 -m twine check dist/* --strict
           python3 -m twine upload dist/*
         env:
           TWINE_USERNAME: __token__
