@@ -13,7 +13,8 @@ maintainers = [
 ]
 description = "Electrical Power System Benchmark Grid Excerpt for Dissertation."
 readme = "README.md"
-license = { text = "BSD-3-Clause" }
+license = "BSD-3-Clause"
+license-files = ["LICEN[CS]E*"]
 requires-python = ">=3.10"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -21,7 +22,6 @@ classifiers = [
     "Intended Audience :: Developers",
     "Intended Audience :: Education",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: BSD License",
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
@@ -55,16 +55,6 @@ tutorials = ["matplotlib", "geopandas", "geojson"]
 all = [
     "matplotlib", "geopandas", "geojson",
     "pytest~=8.1", "pytest-xdist", "nbmake"
-]
-
-[tool.setuptools]
-license-files = [
-    'LICEN[CS]E*',
-    'COPYING*',
-    'NOTICE*',
-    'AUTHORS*',
-    'CHANGELOG*',
-    'CITATION*',
 ]
 
 [tool.setuptools.packages.find]
