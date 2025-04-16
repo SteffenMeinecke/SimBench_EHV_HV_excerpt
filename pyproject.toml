@@ -13,7 +13,7 @@ maintainers = [
 ]
 description = "Electrical Power System Benchmark Grid Excerpt for Dissertation."
 readme = "README.md"
-license = { file = "LICENSE" }
+license = "LICENSE"
 requires-python = ">=3.10"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
